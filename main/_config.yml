@@ -1,0 +1,11 @@
+# Site settings
+title: "Will you be my valentine?"
+description: "Valentine card for my bf"
+baseurl: "/"
+
+# Build settings
+theme: jekyll-theme-primer
+
+exclude:
+  - node_modules
+  - vendor
