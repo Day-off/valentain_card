@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Invitation</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/rain.css">
+    <link rel="stylesheet" href="../css/hearts.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body class="back-row-toggle splat-toggle">
+<div id="overlay"></div>
+<div class="rain front-row"></div>
+<div class="rain back-row"></div>
+
+<div class="context-container">
+    <h1>Will you be my valentine?</h1>
+    <img id="main-image" src="../sources/cute.png" alt="Initial Image">
+</div>
+<div class="button-container">
+    <button id="yes-button" class="button raindrop" onclick="changeImage('yes')">Yes</button>
+    <button id="no-button" class="button raindrop" onclick="changeImage('no')">No</button>
+</div>
+<script>
+    var heartInterval;
+    var makeItRain = function() {
+        $('.rain').empty();
+
+        var drops = "";
+        var backDrops = "";
+        var increment = 0;
+
+        while (increment < 100) {
+            //couple random numbers to use for various randomizations
+            //random number between 98 and 1
+            var randoHundo = (Math.floor(Math.random() * (98 - 1 + 1) + 1));
+            //random number between 5 and 2
+            var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
+            //increment
+            increment += randoFiver;
+            //add in a new raindrop with various randomizations to certain CSS properties
+            drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+            backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+        }
+
+        $('.rain.front-row').append(drops);
+        $('.rain.back-row').append(backDrops);
+    }
+
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+
+        heart.innerText = '💗';
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+    function createLighters() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+        heart.style.zIndex = 3;
+
+        heart.innerText = '🗲';
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+    function changeImage(response) {
+        const image = document.getElementById('main-image');
+        const yesButton = document.getElementById('yes-button');
+        const noButton = document.getElementById('no-button');
+        const buttonContainer = document.querySelector('.button-container');
+
+
+        if (response === 'yes') {
+            $('h1').text("Yay!");
+            image.src = '../sources/kiss.png';
+            $('.rain').empty();
+            document.getElementById("overlay").style.display = "none";
+            heartInterval = setInterval(createHeart, 50);
+            buttonContainer.style.display = 'none';
+        } else {
+            if (noButton.textContent === "No, I'm an asshole."){
+                $('.rain').empty();
+                buttonContainer.style.display = 'none';
+                $('h1').text("You're an asshole. I want a divorce!");
+                image.src = '../sources/angry.png';
+                setInterval(createLighters, 50);
+
+            } else {
+                yesButton.textContent = "Just kidding, I'll be your valentine.";
+                noButton.textContent = "No, I'm an asshole.";
+                $('h1').text("You're an asshole.");
+                image.src = '../sources/sad.png';
+                clearInterval(heartInterval);
+                $('.heart').remove();
+                document.getElementById("overlay").style.display = "block";
+                makeItRain();
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

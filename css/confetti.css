@@ -1,0 +1,22 @@
+@keyframes confetti {
+    0% {
+        transform: translateY(0) rotate(0);
+    }
+    100% {
+        transform: translateY(-1000px) rotate(360deg);
+    }
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #FFD700; /* Use a color of your choice */
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    animation: confetti 2s ease-out;
+}
+
+.confetti-container {
+    position: relative;
+    height: 0;
+}
